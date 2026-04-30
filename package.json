@@ -1,0 +1,32 @@
+{
+  "name": "@permission-protocol/cli",
+  "version": "0.1.0",
+  "description": "Permission Protocol local receipt verification CLI",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "pp": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "typescript": "^5.8.3",
+    "vitest": "^2.1.9"
+  }
+}
