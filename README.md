@@ -21,4 +21,8 @@ Verify Permission Protocol receipts locally with Ed25519 signature checks and ca
 
 ## What does this prove?
 
-`pp verify` proves a receipt was signed by the matching public key over the canonical signed fields, and that the receipt is still valid (not expired/revoked). This is local cryptographic verification, not a trust-me API response. See https://permissionprotocol.com/trust.
+`pp verify` proves a receipt was signed by the matching public key over the canonical signed fields, and that the receipt is still valid (not expired/revoked). This is local cryptographic verification, not a trust-me API response.
+
+`pp` is the reference verifier for the [**`pp-receipt-v1`**](https://github.com/permission-protocol/receipt-spec) open specification.
+
+See https://permissionprotocol.com/trust.
