@@ -50,6 +50,32 @@ describe('verifyReceipt', () => {
     }
   });
 
+  it('rejects non-canonical status values at the schema boundary', async () => {
+    const receipt = (await loadJson('valid.json')) as Record<string, unknown>;
+    receipt.status = 'valid ';
+
+    const result = await verifyReceipt(receipt, { keyFile, noNetwork: true });
+    expect(result.verified).toBe(false);
+    if (!result.verified) {
+      expect(result.exitCode).toBe(3);
+      expect(result.errorCode).toBe('MALFORMED_RECEIPT');
+      expect(result.errorMessage).toBe('unsupported receipt status: valid ');
+    }
+  });
+
+  it('rejects non-string status values at the schema boundary', async () => {
+    const receipt = (await loadJson('valid.json')) as Record<string, unknown>;
+    receipt.status = true;
+
+    const result = await verifyReceipt(receipt, { keyFile, noNetwork: true });
+    expect(result.verified).toBe(false);
+    if (!result.verified) {
+      expect(result.exitCode).toBe(3);
+      expect(result.errorCode).toBe('MALFORMED_RECEIPT');
+      expect(result.errorMessage).toBe('receipt status must be a canonical string');
+    }
+  });
+
   it('returns malformed for malformed receipt', async () => {
     const receipt = await loadJson('malformed.json');
     const result = await verifyReceipt(receipt, { keyFile, noNetwork: true });
