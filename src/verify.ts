@@ -160,6 +160,16 @@ export async function verifyReceipt(receipt: unknown, options: VerifyOptions): P
   }
 
   const status = String(receipt.status);
+  if (status !== 'valid' && status !== 'revoked') {
+    return {
+      verified: false,
+      exitCode: 3,
+      errorCode: 'MALFORMED_RECEIPT',
+      errorMessage: `unsupported receipt status: ${status}`,
+      receiptId: receipt.id as string,
+    };
+  }
+
   if (expiresAt.getTime() <= now.getTime() || status === 'revoked') {
     return {
       verified: false,
